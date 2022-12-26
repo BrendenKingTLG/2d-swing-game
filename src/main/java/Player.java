@@ -32,7 +32,7 @@ public class Player {
         }
     }
 
-    public void paint(Graphics2D graphics2D){   //create game character
+    public void draw(Graphics2D graphics2D){   //create game character
         //draw player
         getPlayerImage();
         graphics2D.drawImage(playerImage, positionX, positionY, panel.finalTileSize, panel.finalTileSize, null);
@@ -42,11 +42,11 @@ public class Player {
     public void getPlayerImage() {
         try {
             if (keyX.goingLeft) {
-                playerImage = ImageIO.read(getClass().getResourceAsStream("/left.png"));
+                playerImage = ImageIO.read(getClass().getResourceAsStream("normal.png"));
             } else if (keyX.goingRight) {
-                playerImage = ImageIO.read(getClass().getResourceAsStream("/right.png"));
+                playerImage = ImageIO.read(getClass().getResourceAsStream("right.png"));
             } else {
-                playerImage = ImageIO.read(getClass().getResourceAsStream("/normal.png"));
+                playerImage = ImageIO.read(getClass().getResourceAsStream("normal.png"));
             }
         } catch (Exception e){
             e.printStackTrace();

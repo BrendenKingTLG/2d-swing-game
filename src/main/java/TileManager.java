@@ -6,10 +6,10 @@ public class TileManager {
     Panel panel;
     Tile[] tile;
 
+
     public TileManager(Panel panel){
         this.panel = panel;
         tile = new Tile[10];
-        getTileImage();
     }
 
     public void getTileImage(){
@@ -27,24 +27,8 @@ public class TileManager {
         }
     }
 
-    public void paint(Graphics2D graphics2D){
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-
-        while (col <= panel.maxWindowCol && row <= panel.maxWindowRow){
-
-            graphics2D.drawImage(tile[0].image, x, y, panel.finalTileSize, panel.finalTileSize, null);
-            col++;
-            x += panel.finalTileSize;
-
-            if (col == panel.maxWindowCol) {
-                col = 0;
-                x = 0;
-                row++;
-                y += panel.finalTileSize;
-            }
+    public void draw(Graphics2D graphics2D){
+        getTileImage();
+        graphics2D.drawImage(tile[0].image, 100, 100, panel.finalTileSize, panel.finalTileSize, null);
         }
     }
-}

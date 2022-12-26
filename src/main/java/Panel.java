@@ -14,11 +14,7 @@ public class Panel extends JPanel implements Runnable{
     KeyEventHandler keyX = new KeyEventHandler(); // handles key events
     Thread gameThread; // create thread for game
     Player player = new Player(this, keyX);
-
-    //player starting position
-    int playerPositionX = 100;
-    int playerPositionY = 100;
-    int playerMovementSpeed = 3;
+    TileManager tileManager = new TileManager(this);
 
     double framesPerSecond = 60;
 
@@ -65,7 +61,8 @@ public class Panel extends JPanel implements Runnable{
         super.paint(graphics);
         //draw player
         Graphics2D graphics2D = (Graphics2D)graphics;
-        player.paint(graphics2D);
+        tileManager.draw(graphics2D);
+        player.draw(graphics2D);
         graphics2D.dispose();
     }
 }
