@@ -1,9 +1,10 @@
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class Game {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         JFrame window = new JFrame(); // create new window with jframe
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allows window to be closable
         window.setTitle("Carnival Exile"); // set title on top of window

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Panel extends JPanel implements Runnable{
     //screen settings
@@ -18,7 +19,7 @@ public class Panel extends JPanel implements Runnable{
 
     double framesPerSecond = 60;
 
-    public Panel() {    //layout for game panel
+    public Panel() throws IOException {    //layout for game panel
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
@@ -61,7 +62,11 @@ public class Panel extends JPanel implements Runnable{
         super.paint(graphics);
         //draw player
         Graphics2D graphics2D = (Graphics2D)graphics;
-        tileManager.draw(graphics2D);
+        try {
+            tileManager.draw(graphics2D);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         player.draw(graphics2D);
         graphics2D.dispose();
     }
