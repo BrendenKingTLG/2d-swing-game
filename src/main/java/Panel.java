@@ -12,11 +12,19 @@ public class Panel extends JPanel implements Runnable{
     final int screenWidth = finalTileSize * maxWindowCol; // 960
     final int screenHeight = finalTileSize * maxWindowRow; // 768
 
+    //world settings
+    final int maxWorldCol = 50;
+    final int maxWorldRow = 50;
+    final int worldHeight = finalTileSize * maxWindowCol;
+    final int worldWidth = finalTileSize * maxWorldRow;
+
+    //composition of game peaces
     KeyEventHandler keyX = new KeyEventHandler(); // handles key events
     Thread gameThread; // create thread for game
-    Player player = new Player(this, keyX);
+    public Player player = new Player(this, keyX);
     TileManager tileManager = new TileManager(this);
 
+    //set frame rate
     double framesPerSecond = 60;
 
     public Panel() throws IOException {    //layout for game panel
@@ -35,7 +43,7 @@ public class Panel extends JPanel implements Runnable{
     @Override
     public void run() { // create game thread (while loop keeps game running, each iteration is a frame)
 
-        double drawInterval = 1_000_000_000/framesPerSecond; // 0.016 seconds to "slow down" game frames
+        double drawInterval = 1_000_000_000/framesPerSecond; // a billion nanoseconds is one second, this line sets "draw" rate
         double delta = 0;
         long previousTime = System.nanoTime();
         long currentTime;

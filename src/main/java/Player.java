@@ -3,10 +3,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player {
-    private int positionX = 100;
-    private int positionY = 100;
+    int playerPositionX;
+    int playerPositionY;
     private int playerSpeed = 3;
     private BufferedImage playerImage;
+    final int cameraX;
+    final int cameraY;
 
 
     Panel panel;
@@ -15,27 +17,33 @@ public class Player {
     public Player(Panel panel, KeyEventHandler keyX) {
         this.panel = panel;
         this.keyX = keyX;
+        // set camera on player in game
+        cameraX = panel.screenWidth/2 - (panel.finalTileSize/2);
+        cameraY = panel.screenHeight/2 - (panel.finalTileSize/2);
+        //set player position
+        playerPositionX = panel.finalTileSize * 8;
+        playerPositionY = panel.finalTileSize * 10;
     }
 
     public void sync() {    //update user positions on each frame
         if (keyX.goingUp){
-            positionY -= playerSpeed;
+            playerPositionY -= playerSpeed;
         }
         if (keyX.goingDown){
-            positionY += playerSpeed;
+            playerPositionY += playerSpeed;
         }
         if (keyX.goingLeft){
-            positionX -= playerSpeed;
+            playerPositionX -= playerSpeed;
         }
         if (keyX.goingRight){
-            positionX += playerSpeed;
+            playerPositionX += playerSpeed;
         }
     }
 
     public void draw(Graphics2D graphics2D){   //create game character
         //draw player
         getPlayerImage();
-        graphics2D.drawImage(playerImage, positionX, positionY, panel.finalTileSize, panel.finalTileSize, null);
+        graphics2D.drawImage(playerImage, cameraX, cameraY, panel.finalTileSize, panel.finalTileSize, null);
     }
 
     //getters and setters
@@ -51,22 +59,6 @@ public class Player {
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public int getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(int positionX) {
-        this.positionX = positionX;
-    }
-
-    public int getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(int positionY) {
-        this.positionY = positionY;
     }
 
     public int getPlayerSpeed() {

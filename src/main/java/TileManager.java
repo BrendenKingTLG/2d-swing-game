@@ -30,7 +30,7 @@ public class TileManager {
 
     public void loadMap() throws IOException {
         try {
-            mapTiles = new int[20][16];
+            mapTiles = new int[50][50]; //comes from panel world size
             InputStream im = getClass().getResourceAsStream("/map.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(im));
 
@@ -39,15 +39,15 @@ public class TileManager {
 
 
 
-            while (col < panel.maxWindowCol && row < panel.maxWindowRow) {
+            while (col < panel.maxWorldCol&& row < panel.maxWorldRow) {
                 String line = br.readLine();
-                while (col < panel.maxWindowCol) {
+                while (col < panel.maxWorldCol) {
                     String[] nums = line.split(" ");
                     int num = Integer.parseInt(nums[col]);
                     mapTiles[col][row] = num;
                     col++;
                 }
-                if (col == panel.maxWindowCol){
+                if (col == panel.maxWorldCol){
                     col = 0;
                     row++;
                 }
@@ -63,22 +63,30 @@ public class TileManager {
     public void draw(Graphics2D graphics2D) throws IOException {
         getTileImage();
         loadMap();
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-        try {
-            while (col < panel.maxWindowCol && row < panel.maxWindowRow) {
-                int tileNumber = mapTiles[col][row];
-                graphics2D.drawImage(tile[tileNumber].image, x, y, panel.finalTileSize, panel.finalTileSize, null);
-                col++;
-                x += panel.finalTileSize;
+        int worldCol = 0;
+        int worldRow = 0;
 
-                if (col == panel.maxWindowCol) {
-                    col = 0;
-                    x = 0;
-                    row ++;
-                    y += panel.finalTileSize;
+        try {
+            while (worldCol < panel.maxWorldCol && worldRow < panel.maxWorldRow) {
+                int tileNumber = mapTiles[worldCol][worldRow];
+
+                //world is for map, camera is for player display area
+                int worldX = worldCol * panel.finalTileSize;
+                int worldY = worldRow * panel.finalTileSize;
+                int cameraX = worldX - panel.player.playerPositionX + panel.player.cameraX;
+                int cameraY = worldY - panel.player.playerPositionY + panel.player.cameraY;
+                if (worldX + panel.finalTileSize > panel.player.playerPositionX - panel.player.cameraX &&
+                    worldX - panel.finalTileSize < panel.player.playerPositionX + panel.player.cameraX &&
+                    worldY + panel.finalTileSize > panel.player.playerPositionY - panel.player.cameraY &&
+                    worldY - panel.finalTileSize < panel.player.playerPositionY + panel.player.cameraY) {
+                    graphics2D.drawImage(tile[tileNumber].image, cameraX, cameraY, panel.finalTileSize, panel.finalTileSize, null);
+
+                }
+                worldCol++;
+
+                if (worldCol == panel.maxWorldCol) {
+                    worldCol = 0;
+                    worldRow ++;
                 }
             }
         } catch (Exception e) {
