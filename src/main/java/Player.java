@@ -5,11 +5,13 @@ import java.awt.image.BufferedImage;
 public class Player {
     int playerPositionX;
     int playerPositionY;
-    private int playerSpeed = 3;
+    int playerSpeed = 3;
     private BufferedImage playerImage;
     final int cameraX;
     final int cameraY;
-
+    Rectangle solidArea;
+    boolean collisionOn = false;
+    String travelingDirection = "not moving";
 
     Panel panel;
     KeyEventHandler keyX;
@@ -23,21 +25,49 @@ public class Player {
         //set player position
         playerPositionX = panel.finalTileSize * 8;
         playerPositionY = panel.finalTileSize * 10;
+        solidArea = new Rectangle(8, 16, 32, 32); // rect sets bounds for collision
     }
 
     public void sync() {    //update user positions on each frame
         if (keyX.goingUp){
-            playerPositionY -= playerSpeed;
+            travelingDirection = "up";
+
         }
         if (keyX.goingDown){
-            playerPositionY += playerSpeed;
+            travelingDirection = "down";
+
         }
         if (keyX.goingLeft){
-            playerPositionX -= playerSpeed;
+            travelingDirection = "left";
+
         }
         if (keyX.goingRight){
-            playerPositionX += playerSpeed;
+            travelingDirection = "right";
         }
+
+        //check collision
+        collisionOn = false;
+        panel.collisionChecker.checkTile(panel.player);
+
+        if (!collisionOn){
+            switch (travelingDirection){
+                case "up":
+                    playerPositionY -= playerSpeed;
+                    break;
+                case "down":
+                    playerPositionY += playerSpeed;
+                    break;
+                case "left":
+                    playerPositionX -= playerSpeed;
+                    break;
+                case "right":
+                    playerPositionX += playerSpeed;
+                    break;
+                case "not moving":
+                    break;
+            }
+        }
+        travelingDirection = "not moving";
     }
 
     public void draw(Graphics2D graphics2D){   //create game character

@@ -14,15 +14,18 @@ public class TileManager {
 
     public TileManager(Panel panel) throws IOException {
         this.panel = panel;
+//        getTileImage();
+//        loadMap();
     }
 
     public void getTileImage(){
         try {
-
             tile[0] = new Tile();
+            tile[0].collision = true;
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/ocean.png"));
+
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/sand.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/sand1.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }

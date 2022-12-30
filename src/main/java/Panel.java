@@ -23,6 +23,7 @@ public class Panel extends JPanel implements Runnable{
     Thread gameThread; // create thread for game
     public Player player = new Player(this, keyX);
     TileManager tileManager = new TileManager(this);
+    CollisionChecker collisionChecker = new CollisionChecker(this);
 
     //set frame rate
     double framesPerSecond = 60;

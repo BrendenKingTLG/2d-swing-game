@@ -9,6 +9,7 @@ public class Game {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allows window to be closable
         window.setTitle("Carnival Exile"); // set title on top of window
         window.setVisible(true); // allows user to see window
+        window.setResizable(false);
         window.setLocationRelativeTo(null); //To center the code
 
         Panel panel = new Panel(); // create game instance
