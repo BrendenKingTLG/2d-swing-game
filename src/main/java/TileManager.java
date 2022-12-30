@@ -26,6 +26,11 @@ public class TileManager {
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/sand1.png"));
+
+            tile[2] = new Tile();
+            tile[2].collision = true;
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tree.png"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,7 +38,7 @@ public class TileManager {
 
     public void loadMap() throws IOException {
         try {
-            mapTiles = new int[50][50]; //comes from panel world size
+            mapTiles = new int[66][50]; //comes from panel world size
             InputStream im = getClass().getResourceAsStream("/map.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(im));
 

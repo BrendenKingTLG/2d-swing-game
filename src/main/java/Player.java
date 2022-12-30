@@ -23,8 +23,8 @@ public class Player {
         cameraX = panel.screenWidth/2 - (panel.finalTileSize/2);
         cameraY = panel.screenHeight/2 - (panel.finalTileSize/2);
         //set player position
-        playerPositionX = panel.finalTileSize * 8;
-        playerPositionY = panel.finalTileSize * 10;
+        playerPositionX = panel.finalTileSize * 25;
+        playerPositionY = panel.finalTileSize * 29;
         solidArea = new Rectangle(8, 16, 32, 32); // rect sets bounds for collision
     }
 
@@ -80,11 +80,13 @@ public class Player {
     public void getPlayerImage() {
         try {
             if (keyX.goingLeft) {
-                playerImage = ImageIO.read(getClass().getResourceAsStream("normal.png"));
+                playerImage = ImageIO.read(getClass().getResourceAsStream("playerLeft.png"));
             } else if (keyX.goingRight) {
-                playerImage = ImageIO.read(getClass().getResourceAsStream("right.png"));
-            } else {
-                playerImage = ImageIO.read(getClass().getResourceAsStream("normal.png"));
+                playerImage = ImageIO.read(getClass().getResourceAsStream("playerRight.png"));
+            } else if (keyX.goingUp){
+                playerImage = ImageIO.read(getClass().getResourceAsStream("playerBack.png"));
+            }else {
+                playerImage = ImageIO.read(getClass().getResourceAsStream("playerFront.png"));
             }
         } catch (Exception e){
             e.printStackTrace();

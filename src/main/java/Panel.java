@@ -13,7 +13,7 @@ public class Panel extends JPanel implements Runnable{
     final int screenHeight = finalTileSize * maxWindowRow; // 768
 
     //world settings
-    final int maxWorldCol = 50;
+    final int maxWorldCol = 66;
     final int maxWorldRow = 50;
     final int worldHeight = finalTileSize * maxWindowCol;
     final int worldWidth = finalTileSize * maxWorldRow;
